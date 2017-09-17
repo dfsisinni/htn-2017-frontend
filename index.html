@@ -24,15 +24,14 @@
         autocomplete = new google.maps.places.Autocomplete(
             /** @type {!HTMLInputElement} */(document.getElementById('address')),
             {types: ['geocode']});
-
-
-        autocomplete.addListener('place_changed', fillInAddress);
       }
 
-      function fillInAddress() {
+      function getCoordinates() {
         var place = autocomplete.getPlace();
-        console.log(place.geometry.location.lat());
-        console.log(place.geometry.location.lng());
+        return {
+          'latitude': place.geometry.location.lat(),
+          'longitude': place.geometry.location.lng()
+        };
       }
 
       function geolocate() {
@@ -124,7 +123,23 @@
   }
 
   function callServer() {
+    var payload = {
+      'marital_status': getSelectedOption('status'),
+      'sex': getSelectedOption('sex'),
+      'first_name': getElement('name'),
+      'address': getCoordinates(),
+      'dob_year': new Date(getElement('date')).getFullYear(),
+      'product': getSelectedOption('product'),
+      'coverage': getSelectedOption('coverage'),
+      'premium': getElement('premium'),
+      'plan': getSelectedOption('plan')
+    };
+    console.log(payload);
     console.log("call api!");
+  }
+
+  function getElement(id) {
+    return document.getElementById(id).value;
   }
 
   function submitRequest() {
