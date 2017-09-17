@@ -61,6 +61,7 @@
               async defer></script>
 
   <link rel="stylesheet" href="assets/css/toastr.min.css" type="text/css">
+  <link rel="stylesheet" href="assets/css/custom.css" type="text/css">
   <script src="assets/js/toastr.min.js"></script>
   <script>
   function getSelectedOption(id) {
@@ -136,6 +137,8 @@
     };
     console.log(payload);
     console.log("call api!");
+
+    $('#myModal').modal();
   }
 
   function getElement(id) {
@@ -234,6 +237,26 @@
   </div>
 </div>
 
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>
