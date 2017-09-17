@@ -152,23 +152,45 @@
   }
 
   </script>
-
+  <style>
+    #grad1 {
+        height: 160px;
+        background: #5190db; /* For browsers that do not support gradients */
+        background: -webkit-linear-gradient(top, #5190db, white); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(bottom, #5190db, white); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(bottom, #5190db, white); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom, #5190db, white); /* Standard syntax (must be last) */
+        top:0;
+    }
+    #grad2 {
+      height: 160px;
+      background: white;
+      background: -webkit-linear-gradient(top, white, #a5e866); /* For Safari 5.1 to 6.0 */
+      background: -o-linear-gradient(bottom, white, #a5e866); /* For Opera 11.1 to 12.0 */
+      background: -moz-linear-gradient(bottom, white, #a5e866); /* For Firefox 3.6 to 15 */
+      background: linear-gradient(to bottom, white, #a5e866); /* Standard syntax (must be last) */
+      bottom: 0;
+      position: fixed;
+    }
+  </style>
 </head>
 
 <body>
 
+<div id="grad1">
 <div class="container">
-
   <div class="row">
+
     <div style="text-align: center;" class="col-md-12">
-      <h2 style="font-weight: bold;">Vitech Insurance Portal</h2>
+      <img src='assets/images/Vitech-Logo.png' style='width:30%; padding-top: 10px; top:0;'>
+      <h2 id = "header" style="font-weight: bold; ">Insurance Portal</h2>
     </div>
   </div>
   <br>
 
   <div class="row">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
+    <div class="col-md-8" style="padding-bottom:15px">
         <fieldset>
           <legend>Personal Information:</legend>
         <div class="form-group">
@@ -238,30 +260,30 @@
         </fieldset>
       <button onclick="submitRequest()" class="btn btn-default">Submit</button>
     </div>
-    <div class="col-md-2"></div>
+  <div class="col-md-2"></div>
   </div>
+
+</div>
 </div>
 
-
 <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+  <div class="modal-dialog">
 
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background:#65a5f2">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
       </div>
-
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer" style="background:#b5f975">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >Close</button>
+      </div>
     </div>
-  </div>
 
+  </div>
+</div>
 </body>
 </html>
