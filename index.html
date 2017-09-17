@@ -25,11 +25,14 @@
             /** @type {!HTMLInputElement} */(document.getElementById('address')),
             {types: ['geocode']});
 
+
         autocomplete.addListener('place_changed', fillInAddress);
       }
 
       function fillInAddress() {
         var place = autocomplete.getPlace();
+        console.log(place.geometry.location.lat());
+        console.log(place.geometry.location.lng());
       }
 
       function geolocate() {
@@ -58,6 +61,80 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTGiMXrGa9Ti4vztS3gh1_C0lcADa3EYo&libraries=places&callback=initAutocomplete"
               async defer></script>
 
+  <link rel="stylesheet" href="assets/css/toastr.min.css" type="text/css">
+  <script src="assets/js/toastr.min.js"></script>
+  <script>
+  function getSelectedOption(id) {
+    var element = document.getElementById(id);
+    return element.options[element.selectedIndex].text;
+  }
+
+  function validateForm() {
+    var chooseOne = "Choose one:";
+
+    var maritalStatus = getSelectedOption('status');
+    if (maritalStatus === chooseOne) {
+      toastr.error('Please select a marital status!');
+      return false;
+    }
+
+    var sex = getSelectedOption('sex');
+    if (sex === chooseOne) {
+      toastr.error('Please select a sex');
+      return false;
+    }
+
+    var name = document.getElementById('name').value;
+    if (name === undefined || name.length === 0) {
+      toastr.error('Please enter a first name');
+      return false;
+    }
+
+    var address = document.getElementById('address').value;
+    if (address === undefined || address.length === 0) {
+      toastr.error('Please enter an address');
+      return false;
+    }
+
+    var dob = document.getElementById('date').value;
+    if (dob === undefined || dob.length === 0) {
+      toastr.error('Please enter a date of birth');
+      return false;
+    }
+
+    var product = getSelectedOption('product');
+    if (product === chooseOne) {
+      toastr.error('Please enter a product');
+      return false;
+    }
+
+    var coverage = getSelectedOption('coverage');
+    if (coverage === chooseOne) {
+      toastr.error('Please enter a coverage');
+      return false;
+    }
+
+    var plan = getSelectedOption('plan');
+    if (plan === chooseOne) {
+      toastr.error('Please enter a plan');
+      return false;
+    }
+
+    return true;
+  }
+
+  function callServer() {
+    console.log("call api!");
+  }
+
+  function submitRequest() {
+    if (validateForm()) {
+      callServer();
+    }
+  }
+
+  </script>
+
 </head>
 
 <body>
@@ -69,12 +146,12 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      <form>
         <fieldset>
           <legend>Personal Information:</legend>
         <div class="form-group">
           <label for="status">Marital Status:</label>
           <select class="form-control" id="status">
+            <option selected disabled>Choose one:</option>
             <option>Married</option>
             <option>Not Married</option>
           </select>
@@ -82,13 +159,14 @@
         <div class="form-group">
           <label for="sex">Sex:</label>
           <select class="form-control" id="sex">
+            <option selected disabled>Choose one:</option>
             <option>Male</option>
             <option>Female</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="status">First Name:</label>
-          <input type="text" class="form-control" id="status"></input>
+          <label for="name">First Name:</label>
+          <input type="text" class="form-control" placeholder="Enter your first name" id="name"></input>
         </div>
         <div class="form-group">
           <label for="address">Address:</label>
@@ -96,7 +174,7 @@
         </div>
         <div class="form-group">
           <label for="date">Date of Birth:</label>
-          <input type="text" class="form-control" id="date" value="9/17/2017"></input>
+          <input type="text" class="form-control" id="date" placeholder="Enter your date of birth"></input>
         </div>
       </fieldset>
         <br>
@@ -105,6 +183,7 @@
           <div class="form-group">
             <label for="product">Product:</label>
             <select class="form-control" id="product">
+              <option selected disabled>Choose one:</option>
               <option>Dental</option>
               <option>Accidental</option>
             </select>
@@ -113,6 +192,7 @@
           <div class="form-group">
             <label for="coverage">Coverage:</label>
             <select class="form-control" id="coverage">
+              <option selected disabled>Choose one:</option>
               <option>Single</option>
               <option>Family</option>
             </select>
@@ -126,14 +206,14 @@
           <div class="form-group">
             <label for="plan">Plan:</label>
             <select class="form-control" id="plan">
+              <option selected disabled>Choose one:</option>
               <option>Regular</option>
               <option>Silver</option>
               <option>Gold</option>
             </select>
           </div>
         </fieldset>
-      <button type="submit" class="btn btn-default">Submit</button>
-    </form>
+      <button onclick="submitRequest()" class="btn btn-default">Submit</button>
     </div>
     <div class="col-md-2"></div>
   </div>
