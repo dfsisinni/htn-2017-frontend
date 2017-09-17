@@ -14,11 +14,50 @@
 
   <link rel="stylesheet" href="assets/css/bootstrap-datetimepicker.min.css" type="text/css">
   <script src="assets/js/bootstrap-datetimepicker.min.js"></script>
+  <script>
+
+      var placeSearch, autocomplete;
+
+
+      function initAutocomplete() {
+
+        autocomplete = new google.maps.places.Autocomplete(
+            /** @type {!HTMLInputElement} */(document.getElementById('address')),
+            {types: ['geocode']});
+
+        autocomplete.addListener('place_changed', fillInAddress);
+      }
+
+      function fillInAddress() {
+        var place = autocomplete.getPlace();
+      }
+
+      function geolocate() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+              center: geolocation,
+              radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+          });
+        }
+      }
+
+    </script>
+
   <script type="text/javascript">
             $(function () {
-                $('#date').datetimepicker({format: 'DD/MM/YYYY'});
+                $('#date').datetimepicker({format: 'MM/DD/YYYY'});
             });
         </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTGiMXrGa9Ti4vztS3gh1_C0lcADa3EYo&libraries=places&callback=initAutocomplete"
+              async defer></script>
+
 </head>
 
 <body>
@@ -31,6 +70,8 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <form>
+        <fieldset>
+          <legend>Personal Information:</legend>
         <div class="form-group">
           <label for="status">Marital Status:</label>
           <select class="form-control" id="status">
@@ -51,12 +92,46 @@
         </div>
         <div class="form-group">
           <label for="address">Address:</label>
-          <input type="text" class="form-control" id="address"></input>
+          <input type="text" class="form-control" id="address" placeholder="Enter your address" onFocus="geolocate()"></input>
         </div>
         <div class="form-group">
           <label for="date">Date of Birth:</label>
-          <input type="text" class="form-control" id="date"></input>
+          <input type="text" class="form-control" id="date" value="9/17/2017"></input>
         </div>
+      </fieldset>
+        <br>
+        <fieldset>
+          <legend>Insurance Policy:</legend>
+          <div class="form-group">
+            <label for="product">Product:</label>
+            <select class="form-control" id="product">
+              <option>Dental</option>
+              <option>Accidental</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="coverage">Coverage:</label>
+            <select class="form-control" id="coverage">
+              <option>Single</option>
+              <option>Family</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="premium">Premium:</label>
+            <input type="number" class="form-control" id="premium" min="1" value="1"></input>
+          </div>
+
+          <div class="form-group">
+            <label for="plan">Plan:</label>
+            <select class="form-control" id="plan">
+              <option>Regular</option>
+              <option>Silver</option>
+              <option>Gold</option>
+            </select>
+          </div>
+        </fieldset>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
     </div>
@@ -66,5 +141,4 @@
 
 
 </body>
-
 </html>
